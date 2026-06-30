@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Itinerary Comparison 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; padding: 32px 24px; }
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { color: #6e6e73; font-size: 14px; margin-bottom: 28px; }
+
+  .cards { display: flex; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+  .card { flex: 1; min-width: 220px; background: white; border-radius: 14px; padding: 20px 22px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .card.option-a { border-top: 4px solid #5856d6; }
+  .card.option-b { border-top: 4px solid #30b0c7; }
+  .card h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: #6e6e73; margin-bottom: 8px; }
+  .card .label { font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+  .card .stat { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 5px 0; border-bottom: 1px solid #f0f0f0; }
+  .card .stat:last-child { border-bottom: none; }
+  .card .stat span:last-child { font-weight: 600; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 20px; margin-top: 12px; }
+  .badge.save { background: #e8f9ef; color: #1d8348; }
+  .badge.full { background: #eeeefa; color: #5856d6; }
+
+  .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #6e6e73; margin: 28px 0 10px; }
+
+  .table-wrap { overflow-x: auto; border-radius: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  table { width: 100%; border-collapse: collapse; background: white; font-size: 13.5px; }
+  thead th { padding: 13px 16px; text-align: left; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: #6e6e73; border-bottom: 2px solid #f0f0f0; white-space: nowrap; }
+  thead th.a { color: #5856d6; }
+  thead th.b { color: #30b0c7; }
+  tbody tr:hover { background: #fafafa; }
+  tbody td { padding: 11px 16px; border-bottom: 1px solid #f5f5f5; vertical-align: top; }
+  tbody td.label { font-weight: 600; color: #3a3a3c; white-space: nowrap; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
+  .tag.event { background: #fff3e0; color: #e65100; }
+  .tag.flight { background: #e8eaf6; color: #3949ab; }
+  .tag.hotel { background: #e8f5e9; color: #2e7d32; }
+  .tag.rest { background: #f5f5f5; color: #757575; }
+  .tag.return { background: #fce4ec; color: #c62828; }
+
+  .pill { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+  .pill.only-a { background: #eeeefa; color: #5856d6; }
+  .pill.only-b { background: #e0f7fa; color: #30b0c7; }
+  .pill.both { background: #f0f0f0; color: #444; }
+
+  .cost-table { width: 100%; border-collapse: collapse; background: white; font-size: 13.5px; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .cost-table thead th { padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: #6e6e73; background: #fafafa; border-bottom: 2px solid #f0f0f0; }
+  .cost-table thead th.a { color: #5856d6; }
+  .cost-table thead th.b { color: #30b0c7; }
+  .cost-table tbody td { padding: 11px 16px; border-bottom: 1px solid #f5f5f5; }
+  .cost-table tbody td.label { font-weight: 600; }
+  .cost-table tfoot td { padding: 13px 16px; font-weight: 700; font-size: 14px; background: #f5f5f7; border-top: 2px solid #e0e0e0; }
+  .green { color: #1d8348; font-weight: 700; }
+  .purple { color: #5856d6; }
+  .teal { color: #30b0c7; }
+
+  .flights-wrap { overflow-x: auto; border-radius: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .flights-table { width: 100%; border-collapse: collapse; background: white; font-size: 13.5px; }
+  .flights-table thead th { padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: #6e6e73; border-bottom: 2px solid #f0f0f0; }
+  .flights-table tbody td { padding: 11px 16px; border-bottom: 1px solid #f5f5f5; }
+  .flights-table tbody td.label { font-weight: 600; }
+
+  .tip { background: #fffbe6; border-left: 4px solid #f5c518; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; margin-top: 20px; }
+  .tip strong { display: block; margin-bottom: 4px; }
+  .validated { display:inline-block; background:#e8f9ef; color:#1d8348; font-size:12px; font-weight:700; padding:3px 10px; border-radius:20px; margin-top:6px; }
+</style>
+</head>
+<body>
+
+<h1>Travel Itinerary Comparison — 2026</h1>
+<p class="subtitle">Departing and returning from Montevideo, Uruguay (MVD) &nbsp;·&nbsp; <strong style="color:#1d8348">ShopTalk: free ticket + USD 1,000 travel reimbursement &nbsp;·&nbsp; eTail: ticket ($249) covers 2 nights hotel + meals &nbsp;·&nbsp; RetailClub AI Festival: free ticket (retailer)</strong><br><span class="validated">&#10003; Flight prices validated on LATAM Airlines — June 30, 2026</span></p>
+
+<!-- SUMMARY CARDS -->
+<div class="cards">
+  <div class="card option-a">
+    <h2>Option A</h2>
+    <div class="label">RetailClub AI Festival + eTail Connect West + ShopTalk Nashville</div>
+    <div class="stat"><span>Trip length</span><span>13–14 days</span></div>
+    <div class="stat"><span>Flights</span><span>3 legs (MVD→LAX, LAX→BNA, BNA→MVD)</span></div>
+    <div class="stat"><span>Hotel nights you pay</span><span>9 nights (3 HB + 2 eTail incl. + 3 Long Beach + 3 Nashville)</span></div>
+    <div class="stat"><span>Cities</span><span>Huntington Beach · Carlsbad (eTail) · Long Beach · Nashville</span></div>
+    <div class="stat"><span>🎫 RetailClub AI Festival (Sep 22, HB)</span><span style="color:#1d8348">FREE ticket (retailer) — $2,395 value ✅</span></div>
+    <div class="stat"><span>🎟 eTail ticket — reembolsás a James</span><span style="color:#c62828">$249 (incl. 2 noches Westin + comidas)</span></div>
+    <div class="stat"><span>🏨 Hotel HB + Hotel Long Beach (6n, vos pagás)</span><span style="color:#c62828">USD 728 total</span></div>
+    <div class="stat"><span>🎟 ShopTalk ticket</span><span style="color:#1d8348">FREE (retailer)</span></div>
+    <div class="stat"><span>✈ ShopTalk reimbursement</span><span style="color:#1d8348">− USD 1,000</span></div>
+    <div class="stat"><span><strong>Net cost (confirmado)</strong></span><span><strong>~USD 2,409 – 3,317</strong></span></div>
+    <span class="badge full">3 conferences · Full program</span>
+  </div>
+  <div class="card option-b">
+    <h2>Option B</h2>
+    <div class="label">ShopTalk Nashville Only</div>
+    <div class="stat"><span>Trip length</span><span>7 days</span></div>
+    <div class="stat"><span>Flights</span><span>2 legs (MVD→BNA, BNA→MVD)</span></div>
+    <div class="stat"><span>Hotel nights you pay</span><span>4 nights (Nashville, Sep 27–Oct 1)</span></div>
+    <div class="stat"><span>Cities</span><span>Nashville</span></div>
+    <div class="stat"><span>🎟 ShopTalk ticket</span><span style="color:#1d8348">FREE (retailer)</span></div>
+    <div class="stat"><span>✈ Travel reimbursement</span><span style="color:#1d8348">− USD 1,000</span></div>
+    <div class="stat"><span><strong>Net cost (you pay)</strong></span><span><strong>~USD 1,680 – 2,290</strong></span></div>
+    <span class="badge save">💰 ~USD 726 CHEAPER (1 conference, 7 días)</span>
+  </div>
+</div>
+
+<!-- DAY BY DAY -->
+<div class="section-title">Day-by-day calendar</div>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Day</th>
+      <th class="a">Option A — eTail + ShopTalk</th>
+      <th class="b">Option B — ShopTalk Only</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="label">Sep 20</td>
+      <td>Sun</td>
+      <td><span class="tag flight">✈ Flight</span> MVD → LAX (Los Angeles) · Check-in Hotel Huntington Beach 🏨 (you pay)</td>
+      <td style="color:#aaa">—</td>
+    </tr>
+    <tr>
+      <td class="label">Sep 21</td>
+      <td>Mon</td>
+      <td><span class="tag hotel">🏨 Hotel Huntington Beach</span> Rest / recover from travel (you pay)</td>
+      <td style="color:#aaa">—</td>
+    </tr>
+    <tr>
+      <td class="label">Sep 22</td>
+      <td>Tue</td>
+      <td><span class="tag event" style="background:#e3f2fd;color:#1565c0">🤖 RetailClub AI Festival</span> Day 1 · FREE ticket (retailer, $2,395 value) · Hotel Huntington Beach (you pay)</td>
+      <td style="color:#aaa">—</td>
+    </tr>
+    <tr>
+      <td class="label">Sep 23</td>
+      <td>Wed</td>
+      <td><span class="tag event">🎯 Event</span> eTail Connect West — Day 1 · Check-in Westin Carlsbad (ticket paid by James ✅)</td>
+      <td style="color:#aaa">—</td>
+    </tr>
+    <tr>
+      <td class="label">Sep 24</td>
+      <td>Thu</td>
+      <td><span class="tag event">🎯 Event</span> eTail Connect West — Day 2 · Night 2 at Westin (included in ticket)</td>
+      <td style="color:#aaa">—</td>
+    </tr>
+    <tr>
+      <td class="label">Sep 25</td>
+      <td>Fri</td>
+      <td><span class="tag event">🎯 Event</span> eTail Connect West — Day 3 · Check-out Westin · Check-in Hotel Carlsbad 🏨 (you pay)</td>
+      <td style="color:#aaa">—</td>
+    </tr>
+    <tr>
+      <td class="label">Sep 26</td>
+      <td>Sat</td>
+      <td><span class="tag hotel">🏨 Hotel Carlsbad</span> Remote work (you pay)</td>
+      <td style="color:#aaa">—</td>
+    </tr>
+    <tr>
+      <td class="label">Sep 27</td>
+      <td>Sun</td>
+      <td><span class="tag hotel">🏨 Hotel Carlsbad</span> Remote work · Prepare for Nashville (you pay)</td>
+      <td><span class="tag flight">✈ Flight</span> MVD → BNA ⚠️ Must depart today to arrive Nashville Sep 28 evening</td>
+    </tr>
+    <tr>
+      <td class="label">Sep 28</td>
+      <td>Mon</td>
+      <td><span class="tag flight">✈ Flight</span> LAX → BNA · Check-in Nashville hotel<br><span class="tag event">🎯 Event</span> ShopTalk Fall — Opens (registration)</td>
+      <td><span class="tag hotel">🏨 Hotel</span> Arrival Nashville. Check-in<br><span class="tag event">🎯 Event</span> ShopTalk Fall — Opens (registration)</td>
+    </tr>
+    <tr>
+      <td class="label">Sep 29</td>
+      <td>Tue</td>
+      <td><span class="tag event">🎯 Event</span> ShopTalk Fall — Sessions (Day 1)</td>
+      <td><span class="tag event">🎯 Event</span> ShopTalk Fall — Sessions (Day 1)</td>
+    </tr>
+    <tr>
+      <td class="label">Sep 30</td>
+      <td>Wed</td>
+      <td><span class="tag event">🎯 Event</span> ShopTalk Fall — Sessions</td>
+      <td><span class="tag event">🎯 Event</span> ShopTalk Fall — Sessions</td>
+    </tr>
+    <tr>
+      <td class="label">Oct 1</td>
+      <td>Thu</td>
+      <td><span class="tag event">🎯 Event</span> ShopTalk Fall — Closing<br><span class="tag return">✈ Flight</span> BNA → MVD (evening)</td>
+      <td><span class="tag event">🎯 Event</span> ShopTalk Fall — Closing<br><span class="tag return">✈ Flight</span> BNA → MVD (evening)</td>
+    </tr>
+    <tr>
+      <td class="label">Oct 2</td>
+      <td>Fri</td>
+      <td><span class="tag hotel">🏠 Back home</span> Arrival Montevideo</td>
+      <td><span class="tag hotel">🏠 Back home</span> Arrival Montevideo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- FLIGHTS -->
+<div class="section-title">Flight details</div>
+<div class="flights-wrap">
+<table class="flights-table">
+  <thead>
+    <tr>
+      <th>Leg</th>
+      <th>Route</th>
+      <th>Approx. date</th>
+      <th>Airlines</th>
+      <th>Min. estimate</th>
+      <th>Avg. estimate</th>
+      <th>Who pays</th>
+      <th>Applies to</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="label">Flight 1</td>
+      <td>MVD → LAX (Los Angeles)</td>
+      <td>Sep 20</td>
+      <td>LATAM (1 stop, 15–23h)</td>
+      <td><span style="color:#1d8348;font-weight:700">USD 618</span> ✅</td>
+      <td>USD 832</td>
+      <td>You</td>
+      <td><span class="pill only-a">Option A only</span></td>
+    </tr>
+    <tr>
+      <td class="label">Flight 2</td>
+      <td>LAX → BNA (Nashville)</td>
+      <td>Sep 28</td>
+      <td>Southwest, United, Delta (domestic)</td>
+      <td>USD 130</td>
+      <td>USD 230</td>
+      <td style="color:#1d8348;font-weight:600">James (you reimburse)</td>
+      <td><span class="pill only-a">Option A only</span></td>
+    </tr>
+    <tr>
+      <td class="label">Flight 1B</td>
+      <td>MVD → BNA (Nashville)</td>
+      <td>Sep 27</td>
+      <td>LATAM + Delta (2 stops)</td>
+      <td><span style="color:#c62828;font-weight:700">USD 918</span> ⚠️</td>
+      <td>USD 982</td>
+      <td>You</td>
+      <td><span class="pill only-b">Option B only</span></td>
+    </tr>
+    <tr>
+      <td class="label">Return flight</td>
+      <td>BNA → MVD (Montevideo)</td>
+      <td>Oct 1–2</td>
+      <td>Delta + LATAM (2 stops)</td>
+      <td><span style="color:#1d8348;font-weight:700">USD 525</span> ✅</td>
+      <td>USD 596</td>
+      <td>You</td>
+      <td><span class="pill both">Both options</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- HOTELS -->
+<div class="section-title">Accommodation</div>
+<div class="flights-wrap">
+<table class="flights-table">
+  <thead>
+    <tr>
+      <th>Dates</th>
+      <th>City</th>
+      <th>Where</th>
+      <th>Nights</th>
+      <th>Cost</th>
+      <th>Who pays</th>
+      <th>Applies to</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="label">Sep 20–23</td>
+      <td>Huntington Beach, CA</td>
+      <td>Best Western Plus Surf City or similar (RetailClub area — Sep 22 Day 1)</td>
+      <td>3</td>
+      <td>USD 360 – 543</td>
+      <td>You</td>
+      <td><span class="pill only-a">Option A only</span></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 23–24</td>
+      <td>Carlsbad, CA</td>
+      <td>Westin Carlsbad Resort (eTail venue, 2 nights included)</td>
+      <td>2</td>
+      <td style="color:#1d8348;font-weight:600">INCLUDED in $249 ticket</td>
+      <td style="color:#1d8348;font-weight:600">James (buys ticket)</td>
+      <td><span class="pill only-a">Option A only</span></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 25–28</td>
+      <td>Long Beach / Signal Hill, CA</td>
+      <td>Hotel cerca de oficina James (Obispo Ave, Signal Hill) — trabajo remoto 3 días</td>
+      <td>3</td>
+      <td>USD 368 – 512</td>
+      <td>You</td>
+      <td><span class="pill only-a">Option A only</span></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 28–Oct 1 (A) · Sep 27–Oct 1 (B)</td>
+      <td>Nashville, TN</td>
+      <td>Omni Nashville ⭐ (closest — ShopTalk partner rate)</td>
+      <td>3 nights (A) · 4 nights (B)</td>
+      <td>USD 660 – 1,400 (A) · USD 880 – 1,400 (B)</td>
+      <td>You</td>
+      <td><span class="pill both">Both options</span></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 28–Oct 1 (A) · Sep 27–Oct 1 (B)</td>
+      <td>Nashville, TN</td>
+      <td>The Westin Nashville (ShopTalk partner rate)</td>
+      <td>3 nights (A) · 4 nights (B)</td>
+      <td>USD 540 – 840 (A) · USD 720 – 1,120 (B)</td>
+      <td>You</td>
+      <td><span class="pill both">Both options</span></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 28–Oct 1 (A) · Sep 27–Oct 1 (B)</td>
+      <td>Nashville, TN</td>
+      <td>Embassy Suites Downtown (ShopTalk partner rate)</td>
+      <td>3 nights (A) · 4 nights (B)</td>
+      <td>USD 480 – 720 (A) · USD 640 – 960 (B)</td>
+      <td>You</td>
+      <td><span class="pill both">Both options</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- DAY BY DAY COSTS -->
+<div class="section-title">Desglose día a día — Option A (costos validados)</div>
+<div class="flights-wrap">
+<table class="flights-table">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Día</th>
+      <th>Actividad</th>
+      <th>Hotel</th>
+      <th>Comidas</th>
+      <th>Vuelos / Otros</th>
+      <th style="color:#5856d6;font-weight:800">Total día</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="label">Sep 20</td>
+      <td>Dom</td>
+      <td>✈ MVD → LAX · Check-in Hotel Huntington Beach</td>
+      <td>$120</td>
+      <td>$30</td>
+      <td><strong>$832</strong> LATAM cómodo</td>
+      <td class="purple"><strong>$982</strong></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 21</td>
+      <td>Lun</td>
+      <td>🏨 Hotel HB · Descanso post-viaje</td>
+      <td>$120</td>
+      <td>$60</td>
+      <td>—</td>
+      <td class="purple"><strong>$180</strong></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 22</td>
+      <td>Mar</td>
+      <td>🤖 RetailClub AI Festival Day 1 · Hotel HB</td>
+      <td>$120</td>
+      <td style="color:#1d8348">$0 (incl.)</td>
+      <td>—</td>
+      <td class="purple"><strong>$120</strong></td>
+    </tr>
+    <tr style="background:#f0fdf4">
+      <td class="label">Sep 23</td>
+      <td>Mié</td>
+      <td>🎯 eTail Connect West Day 1 · Westin Carlsbad</td>
+      <td style="color:#1d8348">$0 (incl.)</td>
+      <td style="color:#1d8348">$0 (incl.)</td>
+      <td>—</td>
+      <td class="green"><strong>$0</strong></td>
+    </tr>
+    <tr style="background:#f0fdf4">
+      <td class="label">Sep 24</td>
+      <td>Jue</td>
+      <td>🎯 eTail Connect West Day 2 · Westin Carlsbad</td>
+      <td style="color:#1d8348">$0 (incl.)</td>
+      <td style="color:#1d8348">$0 (incl.)</td>
+      <td>—</td>
+      <td class="green"><strong>$0</strong></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 25</td>
+      <td>Vie</td>
+      <td>🎯 eTail Day 3 · Checkout Westin · Check-in Hotel Long Beach</td>
+      <td>$123</td>
+      <td style="color:#1d8348">$0 (incl.)</td>
+      <td>—</td>
+      <td class="purple"><strong>$123</strong></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 26</td>
+      <td>Sáb</td>
+      <td>💻 Trabajo remoto desde hotel</td>
+      <td>$123</td>
+      <td>$60</td>
+      <td>—</td>
+      <td class="purple"><strong>$183</strong></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 27</td>
+      <td>Dom</td>
+      <td>💻 Trabajo remoto · Uber → LAX (pagás vos y James)</td>
+      <td>$122</td>
+      <td>$60</td>
+      <td>$35 Uber LAX</td>
+      <td class="purple"><strong>$217</strong></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 28</td>
+      <td>Lun</td>
+      <td>✈ LAX → BNA · Check-in Nashville · Registro ShopTalk</td>
+      <td>$187</td>
+      <td>$80</td>
+      <td><strong>$130</strong> vuelo doméstico</td>
+      <td class="purple"><strong>$397</strong></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 29</td>
+      <td>Mar</td>
+      <td>🎯 ShopTalk Fall — Day 1</td>
+      <td>$187</td>
+      <td>$50</td>
+      <td>—</td>
+      <td class="purple"><strong>$237</strong></td>
+    </tr>
+    <tr>
+      <td class="label">Sep 30</td>
+      <td>Mié</td>
+      <td>🎯 ShopTalk Fall — Day 2</td>
+      <td>$187</td>
+      <td>$50</td>
+      <td>—</td>
+      <td class="purple"><strong>$237</strong></td>
+    </tr>
+    <tr>
+      <td class="label">Oct 1</td>
+      <td>Jue</td>
+      <td>🎯 ShopTalk cierre · ✈ BNA → MVD (noche)</td>
+      <td style="color:#aaa">—</td>
+      <td>$40</td>
+      <td><strong>$525</strong> LATAM regreso</td>
+      <td class="purple"><strong>$565</strong></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr style="background:#f5f0ff">
+      <td colspan="3" class="label">Subtotal corriente (12 días)</td>
+      <td><strong>$1,289</strong></td>
+      <td><strong>$430</strong></td>
+      <td><strong>$1,522</strong></td>
+      <td class="purple" style="font-size:15px"><strong>$3,241</strong></td>
+    </tr>
+    <tr style="background:#fff0f0">
+      <td colspan="6" class="label">+ 🎟 Reembolso ticket eTail a James (2n Westin + comidas incl.)</td>
+      <td style="color:#c62828;font-weight:700">+ $249</td>
+    </tr>
+    <tr style="background:#f0fdf4">
+      <td colspan="6" class="label" style="color:#1d8348">− ✈ ShopTalk travel reimbursement (retailer flat)</td>
+      <td class="green" style="font-size:15px"><strong>− $1,000</strong></td>
+    </tr>
+    <tr style="background:#eeeeff">
+      <td colspan="6" class="label" style="font-size:15px"><strong>NET TOTAL — lo que pagás de bolsillo</strong></td>
+      <td class="purple" style="font-size:20px"><strong>~$2,490</strong></td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+
+<!-- COST COMPARISON -->
+<div class="section-title">Total cost comparison — what YOU pay</div>
+<table class="cost-table">
+  <thead>
+    <tr>
+      <th>Categoría</th>
+      <th class="a">Option A — Confirmado</th>
+      <th class="a">Option A — Est. alto</th>
+      <th class="b">Option B — Mínimo</th>
+      <th class="b">Option B — Promedio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="label">✈ MVD → LAX (vuelo cómodo elegido)</td>
+      <td><strong>USD 832</strong> <span style="font-size:10px;color:#1d8348">LATAM verificado ✅</span></td>
+      <td>USD 832</td>
+      <td style="color:#aaa">—</td>
+      <td style="color:#aaa">—</td>
+    </tr>
+    <tr>
+      <td class="label">✈ MVD → BNA (Option B, directo)</td>
+      <td style="color:#aaa">—</td>
+      <td style="color:#aaa">—</td>
+      <td><span style="color:#c62828;font-weight:700">USD 918</span> <span style="font-size:10px;color:#888">LATAM ✅</span></td>
+      <td>USD 982</td>
+    </tr>
+    <tr>
+      <td class="label">✈ LAX → BNA (tu ticket doméstico)</td>
+      <td>USD 130</td>
+      <td>USD 230</td>
+      <td style="color:#aaa">N/A</td>
+      <td style="color:#aaa">N/A</td>
+    </tr>
+    <tr>
+      <td class="label">✈ BNA → MVD (regreso)</td>
+      <td><span style="color:#1d8348;font-weight:700">USD 525</span> <span style="font-size:10px;color:#888">LATAM ✅</span></td>
+      <td>USD 596</td>
+      <td><span style="color:#1d8348;font-weight:700">USD 525</span> <span style="font-size:10px;color:#888">LATAM ✅</span></td>
+      <td>USD 596</td>
+    </tr>
+    <tr>
+      <td class="label">🎟 Reembolso ticket eTail a James (incl. 2n Westin + comidas)</td>
+      <td style="color:#c62828;font-weight:600">USD 249</td>
+      <td style="color:#c62828;font-weight:600">USD 249</td>
+      <td style="color:#aaa">N/A</td>
+      <td style="color:#aaa">N/A</td>
+    </tr>
+    <tr>
+      <td class="label">🎫 RetailClub AI Festival ticket (Sep 22, HB)</td>
+      <td style="color:#1d8348;font-weight:600">$0 FREE (retailer — $2,395 valor)</td>
+      <td style="color:#1d8348;font-weight:600">$0 FREE</td>
+      <td style="color:#aaa">N/A</td>
+      <td style="color:#aaa">N/A</td>
+    </tr>
+    <tr>
+      <td class="label">🏨 Hotel Huntington Beach (Sep 20–22, 3 noches)</td>
+      <td>USD 360</td>
+      <td>USD 543</td>
+      <td style="color:#aaa">N/A</td>
+      <td style="color:#aaa">N/A</td>
+    </tr>
+    <tr>
+      <td class="label">🏨 Hotel Long Beach / Signal Hill (Sep 25–27, 3 noches)</td>
+      <td>USD 368</td>
+      <td>USD 512</td>
+      <td style="color:#aaa">N/A</td>
+      <td style="color:#aaa">N/A</td>
+    </tr>
+    <tr>
+      <td class="label">🏨 Hotel Nashville (3n — A · 4n — B)</td>
+      <td>USD 480 <span style="font-size:10px;color:#888">Embassy Suites</span></td>
+      <td>USD 720 <span style="font-size:10px;color:#888">Westin</span></td>
+      <td>USD 640</td>
+      <td>USD 960</td>
+    </tr>
+    <tr>
+      <td class="label">🚗 Uber Signal Hill → LAX (Sep 28, pagás vos y James)</td>
+      <td>USD 35</td>
+      <td>USD 35</td>
+      <td style="color:#aaa">N/A</td>
+      <td style="color:#aaa">N/A</td>
+    </tr>
+    <tr>
+      <td class="label">🍽 Comidas & gastos (validado día a día)</td>
+      <td>USD 430</td>
+      <td>USD 600</td>
+      <td>USD 600</td>
+      <td>USD 750</td>
+    </tr>
+    <tr>
+      <td class="label">🎟 ShopTalk ticket</td>
+      <td style="color:#1d8348;font-weight:600">FREE (retailer)</td>
+      <td style="color:#1d8348;font-weight:600">FREE (retailer)</td>
+      <td style="color:#1d8348;font-weight:600">FREE (retailer)</td>
+      <td style="color:#1d8348;font-weight:600">FREE (retailer)</td>
+    </tr>
+    <tr>
+      <td class="label">✈ ShopTalk travel reimbursement</td>
+      <td style="color:#1d8348;font-weight:600">− USD 1,000</td>
+      <td style="color:#1d8348;font-weight:600">− USD 1,000</td>
+      <td style="color:#1d8348;font-weight:600">− USD 1,000</td>
+      <td style="color:#1d8348;font-weight:600">− USD 1,000</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td class="label">NET TOTAL — lo que pagás de bolsillo</td>
+      <td class="purple" style="font-size:16px">~USD 2,409</td>
+      <td class="purple" style="font-size:16px">~USD 3,317</td>
+      <td class="teal" style="font-size:16px">~USD 1,683</td>
+      <td class="teal" style="font-size:16px">~USD 2,288</td>
+    </tr>
+    <tr>
+      <td class="label">Option A vs. Option B</td>
+      <td colspan="2" class="purple" style="font-size:13px">⚠️ ~USD 726 MÁS (confirmado) — 3 conferencias · 13 días · $4,644 en valor recibido gratis</td>
+      <td colspan="2" style="color:#aaa; font-size:12px">—</td>
+    </tr>
+  </tfoot>
+</table>
+
+<div class="tip" style="background:#fff3cd;border-left-color:#e67e22;">
+  <strong>🔑 RESUMEN CONFIRMADO — Vuelos validados LATAM · Hoteles validados Booking.com · Recorrido validado día a día</strong>
+  Option A cuesta <strong>~USD 726 más</strong> que Option B (confirmado: $2,490 vs $1,683). Pero incluye <strong>3 conferencias en 13 días</strong> con ~USD 4,644 en tickets/hotel recibidos gratis. Todo el costo CA es propio — independencia total con James como cliente.
+</div>
+<div class="tip" style="margin-top:10px;">
+  <strong>✅ Logística confirmada · James vive en Long Beach (al lado de HB y LAX a 20 min)</strong>
+  📍 Oficina James: 1984 Obispo Ave #1b, Signal Hill CA — trabajás ahí Sep 25–27 (trabajo remoto)<br>
+  🚗 James te busca en LAX Sep 20 · Sep 28 van juntos en Uber a LAX (vos pagás ~$35 para los dos)<br>
+  🎫 RetailClub: ticket FREE ($2,395 valor) · eTail: reembolsás $249 a James (incl. 2n Westin + comidas) · ShopTalk: FREE + $1,000 reembolso<br>
+  ✈ LAX→BNA: cada uno paga su propio ticket (~$130) · James y vos van separados a Nashville<br>
+  ShopTalk → aplicar en <a href="https://fall.shoptalk.com/page/lets-get-you-a-ticket" target="_blank">fall.shoptalk.com</a> · Descuentos aerolíneas Nashville: <strong>Delta NM57X</strong> · <strong>United ZSJD569269</strong>
+</div>
+
+</body>
+</html>
