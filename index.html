@@ -552,20 +552,96 @@ body {
 .cal-cell-sub { font-size: 11.5px; color: var(--gray-500); }
 
 /* ── RESPONSIVE ─────────────────────────────────── */
-@media (max-width: 640px) {
-  .cards { grid-template-columns: 1fr; }
+
+/* Tablet (≤768px) */
+@media (max-width: 768px) {
+  .section-title { font-size: 17px; }
   .mini-stats { grid-template-columns: repeat(2, 1fr); }
-  .info-boxes { grid-template-columns: 1fr; }
-  .timeline-grid { grid-template-columns: 1fr; }
-  .timeline-entry { grid-template-columns: 50px 10px 1fr; gap: 0 8px; }
-  .timeline-date-num { font-size: 16px; }
-  .hero { padding: 40px 16px 50px; }
-  .main { padding: 24px 14px 48px; }
-  .option-price { font-size: 28px; }
+  .data-table { font-size: 12.5px; }
+  .data-table thead th, .data-table tbody td, .data-table tfoot td { padding: 9px 12px; }
+  .cost-tfoot-main td { font-size: 13px; }
+  .cost-tfoot-main td.c-purple, .cost-tfoot-main td.c-teal { font-size: 17px; }
 }
-@media (max-width: 400px) {
+
+/* Phone (≤640px) */
+@media (max-width: 640px) {
+  /* Layout */
+  .hero { padding: 36px 16px 44px; }
+  .hero-sub { font-size: 13px; }
+  .hero-badge { font-size: 11px; padding: 5px 11px; }
+  .main { padding: 20px 12px 48px; }
+  .section-header { margin: 32px 0 14px; gap: 8px; }
+  .section-icon { width: 30px; height: 30px; font-size: 15px; border-radius: 8px; }
+  .section-title { font-size: 16px; }
+
+  /* Nav */
+  .sticky-nav { padding: 0 8px; }
+  .nav-link { padding: 11px 10px; font-size: 12px; gap: 3px; }
+
+  /* Cards */
+  .cards { grid-template-columns: 1fr; }
+  .option-card-header { padding: 16px 16px 12px; }
+  .option-price-block { padding: 14px 16px; }
+  .option-price { font-size: 30px; }
+  .option-stats { padding: 10px 16px; }
+  .stat-row { font-size: 12px; gap: 6px; }
+  .stat-key { font-size: 11.5px; }
+  .option-footer { padding: 11px 16px; }
+  .save-chip, .full-chip { font-size: 11px; padding: 5px 11px; }
+
+  /* Mini stats */
+  .mini-stats { gap: 8px; }
+  .mini-stat { padding: 12px 10px; }
+  .mini-stat-val { font-size: 20px; }
+  .mini-stat-label { font-size: 10px; }
+
+  /* Calendar table */
+  .cal-table { font-size: 11.5px; }
+  .cal-table thead th { padding: 10px 10px; font-size: 11px; }
+  .cal-table thead th.cal-a::after { display: block; font-size: 9px; opacity: .7; font-weight: 600; }
+  .cal-table tbody td { padding: 9px 10px; }
+  .cal-table tbody td.cal-date { font-size: 14px; padding-right: 6px; }
+  .cal-chip { font-size: 9px; padding: 2px 6px; }
+  .cal-cell-main { font-size: 11.5px; }
+  .cal-cell-sub { font-size: 10.5px; }
+
+  /* Data tables */
+  .data-table { font-size: 11.5px; }
+  .data-table thead th { padding: 8px 10px; font-size: 10px; }
+  .data-table tbody td { padding: 8px 10px; }
+  .data-table tfoot td { padding: 10px 10px; }
+
+  /* Day-by-day — hide "Day" column on phones */
+  .day-table .hide-mobile { display: none; }
+  .day-table tfoot td { font-size: 11px; }
+  .day-table tfoot .net-row .net-total { font-size: 18px; }
+
+  /* Info boxes */
+  .info-boxes { grid-template-columns: 1fr; gap: 10px; }
+  .info-box { padding: 14px 16px; }
+  .info-box h4 { font-size: 12.5px; }
+  .info-box p, .info-box li { font-size: 12px; }
+
+  /* Cost comparison — stack the A/B columns narrower */
+  .cost-tfoot-main td.c-purple,
+  .cost-tfoot-main td.c-teal { font-size: 15px; }
+}
+
+/* Small phone (≤480px) */
+@media (max-width: 480px) {
+  .hero h1 { font-size: 24px; }
+  .option-price { font-size: 26px; }
+  .stat-row { flex-direction: column; gap: 2px; }
+  .stat-val { text-align: left; }
+  /* Cost comparison: scrolls horizontally */
   .mini-stats { grid-template-columns: 1fr 1fr; }
-  .hero h1 { font-size: 22px; }
+}
+
+/* Very small (≤360px) */
+@media (max-width: 360px) {
+  .hero h1 { font-size: 20px; }
+  .option-price { font-size: 24px; }
+  .nav-link { font-size: 11px; padding: 10px 8px; }
 }
 </style>
 </head>
@@ -968,7 +1044,7 @@ body {
       <thead>
         <tr>
           <th>Date</th>
-          <th>Day</th>
+          <th class="hide-mobile">Day</th>
           <th>Activity</th>
           <th>Hotel</th>
           <th>Meals</th>
@@ -978,80 +1054,80 @@ body {
       </thead>
       <tbody>
         <tr>
-          <td class="fw">Sep 20</td><td>Sun</td>
+          <td class="fw">Sep 20</td><td class="hide-mobile">Sun</td>
           <td>✈ MVD → LAX · Check-in Huntington Beach Hotel</td>
           <td>$120</td><td>$30</td>
           <td><strong>$832</strong> LATAM comfortable</td>
           <td class="total">$982</td>
         </tr>
         <tr>
-          <td class="fw">Sep 21</td><td>Mon</td>
+          <td class="fw">Sep 21</td><td class="hide-mobile">Mon</td>
           <td>🏨 Hotel HB · Rest after travel</td>
           <td>$120</td><td>$60</td><td>—</td>
           <td class="total">$180</td>
         </tr>
         <tr>
-          <td class="fw">Sep 22</td><td>Tue</td>
+          <td class="fw">Sep 22</td><td class="hide-mobile">Tue</td>
           <td>🤖 RetailClub AI Festival Day 1 · Hotel HB</td>
           <td>$120</td>
           <td style="color:var(--green)">$0 incl.</td><td>—</td>
           <td class="total">$120</td>
         </tr>
         <tr class="free-day">
-          <td class="fw">Sep 23</td><td>Wed</td>
+          <td class="fw">Sep 23</td><td class="hide-mobile">Wed</td>
           <td>🎯 eTail Connect West Day 1 · Westin Carlsbad</td>
           <td style="color:var(--green)">$0 incl.</td>
           <td style="color:var(--green)">$0 incl.</td><td>—</td>
           <td class="total">$0</td>
         </tr>
         <tr class="free-day">
-          <td class="fw">Sep 24</td><td>Thu</td>
+          <td class="fw">Sep 24</td><td class="hide-mobile">Thu</td>
           <td>🎯 eTail Connect West Day 2 · Westin Carlsbad</td>
           <td style="color:var(--green)">$0 incl.</td>
           <td style="color:var(--green)">$0 incl.</td><td>—</td>
           <td class="total">$0</td>
         </tr>
         <tr>
-          <td class="fw">Sep 25</td><td>Fri</td>
+          <td class="fw">Sep 25</td><td class="hide-mobile">Fri</td>
           <td>🎯 eTail Day 3 · Checkout Westin · Check-in Long Beach</td>
           <td>$123</td>
           <td style="color:var(--green)">$0 incl.</td><td>—</td>
           <td class="total">$123</td>
         </tr>
         <tr>
-          <td class="fw">Sep 26</td><td>Sat</td>
+          <td class="fw">Sep 26</td><td class="hide-mobile">Sat</td>
           <td>💻 Remote work · Long Beach Hotel</td>
           <td>$123</td><td>$60</td><td>—</td>
           <td class="total">$183</td>
         </tr>
         <tr>
-          <td class="fw">Sep 27</td><td>Sun</td>
+          <td class="fw">Sep 27</td><td class="hide-mobile">Sun</td>
           <td>💻 Remote work · Uber → LAX (you + James)</td>
           <td>$122</td><td>$60</td>
           <td>$35 Uber LAX</td>
           <td class="total">$217</td>
         </tr>
         <tr>
-          <td class="fw">Sep 28</td><td>Mon</td>
+          <td class="fw">Sep 28</td><td class="hide-mobile">Mon</td>
           <td>✈ LAX → BNA · Check-in Nashville · ShopTalk registration</td>
           <td>$160</td><td>$80</td>
           <td><strong>$130</strong> domestic flight</td>
           <td class="total">$370</td>
         </tr>
         <tr>
-          <td class="fw">Sep 29</td><td>Tue</td>
+          <td class="fw">Sep 29</td><td class="hide-mobile">Tue</td>
           <td>🎤 ShopTalk Fall — Day 1</td>
           <td>$160</td><td>$50</td><td>—</td>
           <td class="total">$210</td>
         </tr>
         <tr>
-          <td class="fw">Sep 30</td><td>Wed</td>
+          <td class="fw">Sep 30</td><td class="hide-mobile">Wed</td>
           <td>🎤 ShopTalk Fall — Day 2</td>
           <td>$160</td><td>$50</td><td>—</td>
           <td class="total">$210</td>
         </tr>
         <tr>
-          <td class="fw">Oct 1</td><td>Thu</td>
+          <td class="fw">Oct 1</td><td class="hide-mobile">Thu</td>
           <td>🎤 ShopTalk closing · ✈ BNA → MVD (night)</td>
           <td class="c-muted">—</td><td>$40</td>
           <td><strong>$525</strong> LATAM return</td>
@@ -1214,54 +1290,4 @@ body {
   </div>
 </div>
 
-<!-- ── NOTES ────────────────────────────────────── -->
-<div id="notes">
-  <div class="section-header">
-    <div class="section-icon amber">📌</div>
-    <div>
-      <span class="section-label">Important notes</span>
-      <div class="section-title">Confirmed logistics &amp; next steps</div>
-    </div>
-  </div>
-  <div class="info-boxes">
-    <div class="info-box amber">
-      <h4>🔑 Executive summary — Confirmed decision</h4>
-      <p>Option A costs <strong>~USD 726 more</strong> than Option B (confirmed: $2,409 vs $1,683). But includes <strong>3 conferences in 13 days</strong> with ~USD 4,644 in tickets/hotel received for free. All CA costs are your own — <strong>full independence with James as a client</strong>.</p>
-    </div>
-    <div class="info-box green">
-      <h4>✅ Confirmed logistics — James Kao</h4>
-      <ul>
-        <li>James lives in <strong>Long Beach</strong> (next to HB, LAX ~20 min away)</li>
-        <li>📍 Office: 1984 Obispo Ave #1b, Signal Hill CA — remote work Sep 25–27</li>
-        <li>🚗 James picks you up at LAX Sep 20 (he was already going there)</li>
-        <li>Sep 28: <strong>Uber together to LAX</strong> (~$35 you pay for both)</li>
-        <li>LAX→BNA: <strong>each person pays their own ticket</strong> (~$130)</li>
-        <li>🎟 eTail ticket: reimburse $249 to James (incl. 2 nights Westin + meals)</li>
-      </ul>
-    </div>
-    <div class="info-box purple">
-      <h4>✈ Flights: next steps</h4>
-      <ul>
-        <li><strong>LATAM MVD→LAX</strong> validated: $832 (18:40 departure, 1 stop, 16h 20min)</li>
-        <li><strong>BNA→MVD return</strong>: $525 LATAM validated</li>
-        <li>LAX→BNA domestic: search Southwest / United / Delta (~$130)</li>
-        <li>ShopTalk Nashville airline discounts: <strong>Delta NM57X</strong> · <strong>United ZSJD569269</strong></li>
-        <li>Apply for ShopTalk ticket: <a href="https://fall.shoptalk.com/page/lets-get-you-a-ticket" target="_blank">fall.shoptalk.com</a></li>
-      </ul>
-    </div>
-    <div class="info-box green">
-      <h4>💎 Value received for free — Option A</h4>
-      <ul>
-        <li>🤖 RetailClub AI Festival ticket: <strong>$2,395</strong> (retailer)</li>
-        <li>🎯 eTail ticket (incl. 2 nights Westin): <strong>$249</strong> (James → you reimburse)</li>
-        <li>🎤 ShopTalk ticket: estimated value <strong>~$2,000+</strong> (retailer)</li>
-        <li>✈ ShopTalk reimbursement: <strong>$1,000</strong></li>
-        <li style="font-weight:700;color:var(--green)">Total free value received: ~$4,644</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-</main>
-</body>
-</html>
+<!-- �
