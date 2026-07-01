@@ -551,6 +551,19 @@ body {
 .cal-cell-main { font-weight: 600; color: var(--gray-900); margin-bottom: 2px; }
 .cal-cell-sub { font-size: 11.5px; color: var(--gray-500); }
 
+/* ── TABLE MIN-WIDTHS (scroll gracefully on any screen) ── */
+.cal-table   { min-width: 600px; }
+#flights  .data-table { min-width: 700px; }
+#hotels   .data-table { min-width: 680px; }
+#daybyDay .data-table { min-width: 640px; }
+#costs    .data-table { min-width: 720px; }
+/* touch-scroll hint */
+.table-wrap, .cal-wrap { -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; }
+
+/* Short calendar headers on mobile (hide long text, show short) */
+.cal-header-short { display: none; }
+.cal-header-full  { display: inline; }
+
 /* ── RESPONSIVE ─────────────────────────────────── */
 
 /* Tablet (≤768px) */
@@ -596,14 +609,25 @@ body {
   .mini-stat-label { font-size: 10px; }
 
   /* Calendar table */
+  .cal-header-full  { display: none; }
+  .cal-header-short { display: inline; }
   .cal-table { font-size: 11.5px; }
   .cal-table thead th { padding: 10px 10px; font-size: 11px; }
-  .cal-table thead th.cal-a::after { display: block; font-size: 9px; opacity: .7; font-weight: 600; }
   .cal-table tbody td { padding: 9px 10px; }
   .cal-table tbody td.cal-date { font-size: 14px; padding-right: 6px; }
   .cal-chip { font-size: 9px; padding: 2px 6px; }
   .cal-cell-main { font-size: 11.5px; }
   .cal-cell-sub { font-size: 10.5px; }
+  /* Scroll hint label under scrollable tables */
+  .table-wrap::after, .cal-wrap::after {
+    content: '← scroll →';
+    display: block;
+    text-align: center;
+    font-size: 10px;
+    color: var(--gray-400);
+    padding: 4px 0;
+    letter-spacing: 1px;
+  }
 
   /* Data tables */
   .data-table { font-size: 11.5px; }
@@ -803,8 +827,8 @@ body {
     <thead>
       <tr>
         <th class="cal-date">Date</th>
-        <th class="cal-a">🟣 Option A — 13 days · ~$2,409 · HB · Carlsbad · Long Beach · Nashville</th>
-        <th class="cal-b">🔵 Option B — 7 days · ~$1,683 · Nashville only</th>
+        <th class="cal-a"><span class="cal-header-full">🟣 Option A — 13 days · ~$2,409 · HB · Carlsbad · Long Beach · Nashville</span><span class="cal-header-short">🟣 Option A</span></th>
+        <th class="cal-b"><span class="cal-header-full">🔵 Option B — 7 days · ~$1,683 · Nashville only</span><span class="cal-header-short">🔵 Option B</span></th>
       </tr>
     </thead>
     <tbody>
